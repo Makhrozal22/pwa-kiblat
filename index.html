@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+    <title>PWA Arah Kiblat</title>
+</head>
+<body>
+    <header>
+        <h1> Aplikasi Arah Kiblat</h1>
+        <p> Menentukan arah Kiblat dan jadwal Sholat</p>
+    </header>
+    
+    <main>
+        <section id="kiblat" class="page active">
+            <h2> Arah Kiblat </h2>
+            <div class="compas-container">
+                <div class="compas">
+                    <div class="compass-direction north">N</div>
+                    <div class="compass-direction south">S</div>
+                    <div class="compass-direction east">E</div>
+                    <div class="compass-direction west">W</div>
+                    <div class="needle">
+                        <div class="shaft"></div>
+                    </div>
+                </div>
+            </div>
+            <button id="btnlokasi"> Ambil Lokasi </button>
+            <p id="hasil">lokasi belum diambil</p>
+        </section>
+
+        <section id="jadwal" class="page">
+            <h2> Jadwal Sholat</h2>
+            <p id="kotaJadwal"> Kota : - </p>
+            <p id="tanggal">Tanggal : - </p>
+            <ul class="jadwal-list">
+                <li><i class="bi bi-sunrise"></i> Subuh <span id="subuh">-</span></li>
+                <li><i class="bi bi-sun"></i> Dzuhur <span id="dzuhur">-</span></li>
+                <li><i class="bi bi-cloud-sun"></i> Ashar <span id="ashar">-</span></li>
+                <li><i class="bi bi-sunset"></i> Maghrib <span id="maghrib">-</span></li>
+                <li><i class="bi bi-moon-stars"></i> Isya <span id="isya">-</span></li>
+            </ul>
+        </section>
+
+        <section id="lokasi" class="page">
+            <h2> Lokasi Anda </h2>
+            <p> Informasi lokasi akan ditampilkan di sini</p>
+        </section>
+        
+        <section id="tentang" class="page">
+            <h2> Tentang Aplikasi </h2>
+            <p> Aplikasi ini membantu menentukan arah Kiblat dan jadwal Sholat berdasarkan lokasi Anda.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Arah Kiblat. All rights reserved.</p>
+    </footer>
+
+    <nav class="bottom-nav">
+        <button onclick="showPage('kiblat')" class="active">
+            <i class="bi bi-compass"></i>
+            <span>Kiblat</span>
+        </button>
+        <button onclick="showPage('jadwal')">
+            <i class="bi bi-clock"></i>
+            <span>Jadwal</span>
+        </button>
+        <button onclick="showPage('lokasi')">
+            <i class="bi bi-geo-alt"></i>
+            <span>Lokasi</span>
+        </button>
+        <button onclick="showPage('tentang')">
+            <i class="bi bi-info-circle"></i>
+            <span>Tentang</span>
+        </button>
+    </nav>
+
+    <script src="app.js"></script>
+
+</body>
+</html>

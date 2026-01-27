@@ -1,0 +1,364 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #d2f555 0%, #a8e6cf 100%);
+    padding: 16px;
+    min-height: 100vh;
+    color: #333;
+}
+
+/* Header styles */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+    color: #2c3e50;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+header p {
+    font-size: 16px;
+    color: #7f8c8d;
+}
+
+/* Main content styles */
+main {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 100px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+main h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+/* Button styles */
+button {
+    width: 100%;
+    max-width: 300px;
+    padding: 15px;
+    font-size: 18px;
+    background: linear-gradient(135deg, #3bdd40 0%, #2aa830 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    margin: 15px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(59, 221, 64, 0.3);
+    font-weight: bold;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #2aa830 0%, #1e7e24 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 221, 64, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(59, 221, 64, 0.3);
+}
+
+/* Result display styles */
+#hasil {
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+    background: rgba(248, 249, 250, 0.8);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    border-left: 4px solid #3bdd40;
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #777;
+}
+
+/* Tablet & laptop styles */
+@media(min-width: 768px) {
+    body {
+        padding: 32px;
+    }
+
+    main {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    button {
+        font-size: 18px;
+    }
+
+    #hasil {
+        font-size: 18px;
+    }
+}
+
+/* Page styles */
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* Bottom navigation styles */
+.bottom-nav {
+    position: fixed;
+    bottom: 12px ;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 360px;
+    display: flex;
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 6px;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    z-index: 999;
+}
+
+.bottom-nav button {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    background: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #777;
+    font-size: 12px;
+    transition: 0.25s;
+    border-radius: 12px;
+}
+
+.bottom-nav button span {
+    margin-top: 4px;
+    font-size: 11px;
+}
+
+.bottom-nav i {
+    font-size: 24px;
+    color: #777;
+    transition: 0.25s;
+}
+
+.bottom-nav button.active {
+    background-color: rgba(12, 255, 21, 0.15);
+    color: #3bdd40;
+}
+
+.bottom-nav button.active i {
+    color: #3bdd40;
+}
+
+.bottom-nav button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.bottom-nav button:active i {
+    transform: scale(0.95);
+}
+
+/* Compass styles */
+.compas-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    position: relative;
+}
+.compas {
+    width: min(250px, 80vw);
+    height: min(250px, 80vw);
+    border: 8px solid #3bdd40;
+    border-radius: 50%;
+    position: relative;
+    background: radial-gradient(circle, #f0f8ff 0%, #ffffff 70%, #e8f5e8 100%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 4px 16px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+/* Arah mata angin */
+.compass-direction {
+    position: absolute;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.compass-direction.north {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.compass-direction.south {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.compass-direction.east {
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+.compass-direction.west {
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+/* jarum */
+.needle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    transform-origin: center bottom;
+    transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 10;
+}
+
+.needle::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 60px solid #ff4444;
+    top: -60px;
+    left: -8px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.needle::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 45px solid #ffffff;
+    top: -45px;
+    left: -6px;
+    opacity: 0.8;
+}
+
+.needle .shaft {
+    width: 3px;
+    height: 80px;
+    background: linear-gradient(to bottom, #ff4444, #cc0000);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Animasi saat berputar */
+.needle.rotating {
+    animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.2) drop-shadow(0 0 10px rgba(255, 68, 68, 0.5)); }
+    100% { filter: brightness(1); }
+}
+
+/* Responsif untuk kompas */
+@media (max-width: 480px) {
+    .compas {
+        width: 180px;
+        height: 180px;
+    }
+    .compass-direction {
+        font-size: 14px;
+    }
+    .needle::before {
+        border-bottom-width: 45px;
+        top: -45px;
+    }
+    .needle::after {
+        border-bottom-width: 35px;
+        top: -35px;
+    }
+    .needle .shaft {
+        height: 60px;
+    }
+}
+/* Jadwal Sholat styles */
+.jadwal-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.jadwal-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 12px;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.jadwal-list li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.jadwal-list li i {
+    margin-right: 10px;
+    font-size: 24px;
+    color: #3bdd40;
+    flex-shrink: 0;
+}
+
+.jadwal-list span {
+    font-weight: bold;
+    color: #3bdd40;
+    font-size: 18px;
+}
