@@ -1,176 +1,147 @@
-function showPage(id) {
-    // Hide all pages
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+// Koordinat Ka'bah (Mekkah)
+const KABAH_LAT = 21.4225;
+const KABAH_LNG = 39.8262;
 
-    // Show selected page
-    document.getElementById(id).classList.add('active');
+// Elemen DOM
+const btnLokasi = document.getElementById("btnlokasi");
+const hasil = document.getElementById("hasil");
+const needle = document.querySelector(".needle");
 
-    // Remove active class from all nav buttons
-    document.querySelectorAll('.bottom-nav button').forEach(b => b.classList.remove('active'));
+/* ======================================================
+   NAVIGATION (BOTTOM NAV)
+====================================================== */
+function showPage(pageId) {
+   
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
 
-    // Add active class to clicked button
-    event.currentTarget.classList.add('active');
+    // Tampilkan page yang dipilih
+    document.getElementById(pageId).classList.add("active");
+
+    // Update tombol aktif
+    document.querySelectorAll(".bottom-nav button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    event.currentTarget.classList.add("active");
 }
 
-// Helper functions for degrees/radians conversion
-function toRadians(degrees) {
-    return degrees * (Math.PI / 180);
-}
-
-function toDegrees(radians) {
-    return radians * (180 / Math.PI);
-}
-
-let currentAngle = 0; // Sudut jarum saat ini
-
-document.getElementById('btnlokasi').addEventListener('click', ambilLokasi);
-
-function ambilLokasi() {
+/* ======================================================
+   AMBIL LOKASI USER
+====================================================== */
+btnLokasi.addEventListener("click", () => {
     if (!navigator.geolocation) {
-        alert('Geolocation tidak didukung oleh browser Anda');
+        hasil.innerText = "Browser tidak mendukung GPS";
         return;
     }
 
-    navigator.geolocation.getCurrentPosition(posisiBerhasil, posisiGagal);
-}
+    hasil.innerText = "Mengambil lokasi...";
 
-function posisiBerhasil(position) {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-
-    // Koordinat Ka'bah
-    const latKaBah = 21.4225;
-    const longKaBah = 39.8262;
-
-    const arah = hitungArahKiblat(latitude, longitude, latKaBah, longKaBah);
-
-    // Animasi rotasi jarum kompas
-    animateRotation(arah);
-
-    // Update hasil
-    document.getElementById('hasil').innerHTML = `
-        Latitude: ${latitude.toFixed(6)}<br>
-        Longitude: ${longitude.toFixed(6)}<br>
-        Arah Kiblat: ${arah.toFixed(2)}° dari utara`;
-
-    // Update lokasi page if it exists
-    const lokasiSection = document.getElementById('lokasi');
-    if (lokasiSection) {
-        lokasiSection.innerHTML = `
-            <h2>Lokasi Anda</h2>
-            <p>Latitude: ${latitude.toFixed(6)}</p>
-            <p>Longitude: ${longitude.toFixed(6)}</p>
-        `;
-    }
-
-    // Ambil jadwal sholat berdasarkan lokasi
-    tampilkanKota(latitude, longitude);
-    ambilJadwalSholat(latitude, longitude);
-}
-
-function animateRotation(targetAngle) {
-    const needle = document.querySelector(".needle");
-    needle.classList.add('rotating');
-    const duration = 2000; // Durasi animasi dalam ms
-    const startAngle = currentAngle;
-    const startTime = performance.now();
-
-    function animate(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        // Ease out function
-        const easeOut = 1 - Math.pow(1 - progress, 3);
-
-        const currentAngleNow = startAngle + (targetAngle - startAngle) * easeOut;
-        needle.style.transform = `translate(-50%, -50%) rotate(${currentAngleNow}deg)`;
-
-        if (progress < 1) {
-            requestAnimationFrame(animate);
-        } else {
-            currentAngle = targetAngle;
-            needle.classList.remove('rotating');
+    navigator.geolocation.getCurrentPosition(
+        successLocation,
+        errorLocation,
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
         }
-    }
+    );
+});
 
-    requestAnimationFrame(animate);
+function successLocation(position) {
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+
+    hasil.innerHTML = `
+        Latitude : ${lat.toFixed(6)} <br>
+        Longitude : ${lng.toFixed(6)}
+    `;
+
+    // Hitung arah kiblat
+    const arahKiblat = hitungArahKiblat(lat, lng);
+
+    // Putar kompas
+    putarKompas(arahKiblat);
+
+    // Ambil jadwal sholat
+    ambilJadwalSholat(lat, lng);
 }
 
-function hitungArahKiblat(lat1, lon1, lat2, lon2) {
-    const dLon = toRadians(lon2 - lon1);
-
-    const y = Math.sin(dLon) * Math.cos(toRadians(lat2));
-    const x = Math.cos(toRadians(lat1)) * Math.sin(toRadians(lat2)) -
-        Math.sin(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.cos(dLon);
-
-    const brng = Math.atan2(y, x);
-    return (toDegrees(brng) + 360) % 360;
+function errorLocation(error) {
+    hasil.innerText = "Gagal mengambil lokasi";
+    console.error(error);
 }
 
-function posisiGagal() {
-    alert('Gagal mendapatkan lokasi. Pastikan izin lokasi diberikan.');
+/* ======================================================
+   HITUNG ARAH KIBLAT
+====================================================== */
+function hitungArahKiblat(lat, lng) {
+
+    const latRad = degToRad(lat);
+    const lngRad = degToRad(lng);
+    const kabahLatRad = degToRad(KABAH_LAT);
+    const kabahLngRad = degToRad(KABAH_LNG);
+
+    const y = Math.sin(kabahLngRad - lngRad);
+    const x =
+        Math.cos(latRad) * Math.tan(kabahLatRad) -
+        Math.sin(latRad) * Math.cos(kabahLngRad - lngRad);
+
+    let bearing = Math.atan2(y, x);
+    bearing = radToDeg(bearing);
+    bearing = (bearing + 360) % 360;
+
+    return bearing;
 }
 
+/* ======================================================
+   PUTAR JARUM KOMPAS
+====================================================== */
+function putarKompas(derajat) {
+    needle.classList.add("rotating");
 
-function ambilJadwalSholat(latitude, longitude) {
-    // Tampilkan loading
-    document.getElementById('tanggal').innerText = 'Tanggal: Memuat...';
-    document.getElementById('subuh').innerText = '-';
-    document.getElementById('dzuhur').innerText = '-';
-    document.getElementById('ashar').innerText = '-';
-    document.getElementById('maghrib').innerText = '-';
-    document.getElementById('isya').innerText = '-';
+    // Rotasi jarum
+    needle.style.transform = `translate(-50%, -50%) rotate(${derajat}deg)`;
 
-    const today = new Date();
-    const date = today.getDate();
-    const month = today.getMonth() + 1; // Bulan dimulai dari 0
-    const year = today.getFullYear();
+    setTimeout(() => {
+        needle.classList.remove("rotating");
+    }, 500);
+}
 
-    const url = `https://api.aladhan.com/v1/timings/${date}-${month}-${year}?latitude=${latitude}&longitude=${longitude}&method=2`;
+/* ======================================================
+   JADWAL SHOLAT (API)
+====================================================== */
+function ambilJadwalSholat(lat, lng) {
     
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.code === 200) {
-                const jadwal = data.data.timings;
-                const tanggal = data.data.date.readable;
+    const url = `https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lng}&method=2`;
 
-                document.getElementById('tanggal').innerText = `Tanggal: ${tanggal}`;
-                document.getElementById('subuh').innerText = jadwal.Fajr;
-                document.getElementById('dzuhur').innerText = jadwal.Dhuhr;
-                document.getElementById('ashar').innerText = jadwal.Asr;
-                document.getElementById('maghrib').innerText = jadwal.Maghrib;
-                document.getElementById('isya').innerText = jadwal.Isha;
-            } else {
-                console.error('API Error:', data.status);
-                document.getElementById('tanggal').innerText = 'Tanggal: Gagal memuat';
-            }
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            const jadwal = data.data.timings;
+            const tanggal = data.data.date.readable;
+            const kota = data.data.meta.timezone;
+
+            document.getElementById("subuh").innerText = jadwal.Fajr;
+            document.getElementById("dzuhur").innerText = jadwal.Dhuhr;
+            document.getElementById("ashar").innerText = jadwal.Asr;
+            document.getElementById("maghrib").innerText = jadwal.Maghrib;
+            document.getElementById("isya").innerText = jadwal.Isha;
+
+            document.getElementById("tanggal").innerText = `Tanggal : ${tanggal}`;
+            document.getElementById("kotaJadwal").innerText = `Zona : ${kota}`;
         })
-        .catch((error) => {
-            console.error('Gagal ambil jadwal sholat:', error);
-            document.getElementById('tanggal').innerText = 'Tanggal: Error';
+        .catch(err => {
+            console.error(err);
         });
 }
 
-function tampilkanKota(latitude, longitude) {
-    const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            console.log('BigDataCloud response:', data); // Untuk debugging
-            let kota = 'Unknown';
-            if (data && data.city) {
-                kota = data.city;
-            } else if (data && data.locality) {
-                kota = data.locality;
-            } else if (data && data.principalSubdivision) {
-                kota = data.principalSubdivision;
-            }
-            document.getElementById('kotaJadwal').innerText = `Kota: ${kota}`;
-        })
-        .catch((error) => {
-            console.error('Gagal ambil nama kota:', error);
-            document.getElementById('kotaJadwal').innerText = `Lokasi: ${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
-        });
+function degToRad(deg) {
+    return deg * (Math.PI / 180);
+}
+
+function radToDeg(rad) {
+    return rad * (180 / Math.PI);
 }

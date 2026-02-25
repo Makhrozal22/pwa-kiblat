@@ -1,128 +1,35 @@
-/* Reset styles */
+/* =====================
+   RESET
+===================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body styles */
+/* =====================
+   BODY (APP STYLE)
+===================== */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #d2f555 0%, #a8e6cf 100%);
-    padding: 16px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: linear-gradient(180deg, #b9f56b 0%, #dff7d0 100%);
     min-height: 100vh;
-    color: #333;
+    color: #1f2937;
 }
 
-/* Header styles */
-header {
-    text-align: center;
-    margin-bottom: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-header h1 {
-    font-size: 28px;
-    margin-bottom: 5px;
-    color: #2c3e50;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-header p {
-    font-size: 16px;
-    color: #7f8c8d;
-}
-
-/* Main content styles */
+/* =====================
+   MAIN APP CONTAINER
+===================== */
 main {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 100px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
+    max-width: 430px;
+    margin: 0 auto;
+    padding: env(safe-area-inset-top) 16px 140px;
+    padding-bottom: 160px;
 }
 
-main h2 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 15px;
-    color: #2c3e50;
-}
-
-/* Button styles */
-button {
-    width: 100%;
-    max-width: 300px;
-    padding: 15px;
-    font-size: 18px;
-    background: linear-gradient(135deg, #3bdd40 0%, #2aa830 100%);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    margin: 15px 0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(59, 221, 64, 0.3);
-    font-weight: bold;
-}
-
-button:hover {
-    background: linear-gradient(135deg, #2aa830 0%, #1e7e24 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(59, 221, 64, 0.4);
-}
-
-button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(59, 221, 64, 0.3);
-}
-
-/* Result display styles */
-#hasil {
-    text-align: center;
-    font-size: 16px;
-    color: #333;
-    background: rgba(248, 249, 250, 0.8);
-    padding: 15px;
-    border-radius: 10px;
-    margin-top: 15px;
-    border-left: 4px solid #3bdd40;
-}
-
-/* Footer styles */
-footer {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 12px;
-    color: #777;
-}
-
-/* Tablet & laptop styles */
-@media(min-width: 768px) {
-    body {
-        padding: 32px;
-    }
-
-    main {
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    button {
-        font-size: 18px;
-    }
-
-    #hasil {
-        font-size: 18px;
-    }
-}
-
-/* Page styles */
+/* =====================
+   PAGE HANDLER
+===================== */
 .page {
     display: none;
 }
@@ -131,118 +38,46 @@ footer {
     display: block;
 }
 
-/* Bottom navigation styles */
-.bottom-nav {
-    position: fixed;
-    bottom: 12px ;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 95%;
-    max-width: 360px;
-    display: flex;
-    background-color: #ffffff;
-    border-radius: 24px;
-    padding: 6px;
-    justify-content: center;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-    z-index: 999;
+/* =====================
+   SECTION HEAD
+===================== */
+h2 {
+    text-align: center;
+    font-size: 20px;
+    margin: 12px 0 20px;
+    font-weight: 600;
 }
 
-.bottom-nav button {
-    flex: 1;
-    padding: 8px;
-    border: none;
-    background: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: #777;
-    font-size: 12px;
-    transition: 0.25s;
-    border-radius: 12px;
-}
-
-.bottom-nav button span {
-    margin-top: 4px;
-    font-size: 11px;
-}
-
-.bottom-nav i {
-    font-size: 24px;
-    color: #777;
-    transition: 0.25s;
-}
-
-.bottom-nav button.active {
-    background-color: rgba(12, 255, 21, 0.15);
-    color: #3bdd40;
-}
-
-.bottom-nav button.active i {
-    color: #3bdd40;
-}
-
-.bottom-nav button:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.bottom-nav button:active i {
-    transform: scale(0.95);
-}
-
-/* Compass styles */
+/* =====================
+   COMPASS AREA
+===================== */
 .compas-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-    position: relative;
-}
-.compas {
-    width: min(250px, 80vw);
-    height: min(250px, 80vw);
-    border: 8px solid #3bdd40;
-    border-radius: 50%;
-    position: relative;
-    background: radial-gradient(circle, #f0f8ff 0%, #ffffff 70%, #e8f5e8 100%);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 4px 16px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
+    margin-bottom: 24px;
 }
 
-/* Arah mata angin */
+.compas {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 8px solid #22c55e;
+    background: radial-gradient(circle, #ffffff 0%, #f1f5f9 70%);
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,.12);
+}
+
+/* arah */
 .compass-direction {
     position: absolute;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.compass-direction.north {
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.compass-direction.south {
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.compass-direction.east {
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-}
-
-.compass-direction.west {
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-}
+.north { top: 8px; left: 50%; transform: translateX(-50%); }
+.south { bottom: 8px; left: 50%; transform: translateX(-50%); }
+.east  { right: 8px; top: 50%; transform: translateY(-50%); }
+.west  { left: 8px; top: 50%; transform: translateY(-50%); }
 
 /* jarum */
 .needle {
@@ -251,114 +86,176 @@ footer {
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
     transform-origin: center bottom;
-    transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    z-index: 10;
+    transition: transform 1.2s ease-out;
 }
 
 .needle::before {
     content: '';
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 60px solid #ef4444;
     position: absolute;
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 60px solid #ff4444;
     top: -60px;
-    left: -8px;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    left: -7px;
 }
 
 .needle::after {
     content: '';
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 42px solid #fff;
     position: absolute;
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 45px solid #ffffff;
-    top: -45px;
-    left: -6px;
-    opacity: 0.8;
+    top: -42px;
+    left: -5px;
 }
 
 .needle .shaft {
     width: 3px;
-    height: 80px;
-    background: linear-gradient(to bottom, #ff4444, #cc0000);
+    height: 70px;
+    background: linear-gradient(#ef4444, #b91c1c);
     position: absolute;
-    top: 0;
     left: 50%;
     transform: translateX(-50%);
-    border-radius: 2px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Animasi saat berputar */
-.needle.rotating {
-    animation: pulse 0.5s ease-in-out;
+/* =====================
+   BUTTON
+===================== */
+button {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(34,197,94,.4);
+    cursor: pointer;
 }
 
-@keyframes pulse {
-    0% { filter: brightness(1); }
-    50% { filter: brightness(1.2) drop-shadow(0 0 10px rgba(255, 68, 68, 0.5)); }
-    100% { filter: brightness(1); }
+button:active {
+    transform: scale(0.97);
 }
 
-/* Responsif untuk kompas */
-@media (max-width: 480px) {
-    .compas {
-        width: 180px;
-        height: 180px;
-    }
-    .compass-direction {
-        font-size: 14px;
-    }
-    .needle::before {
-        border-bottom-width: 45px;
-        top: -45px;
-    }
-    .needle::after {
-        border-bottom-width: 35px;
-        top: -35px;
-    }
-    .needle .shaft {
-        height: 60px;
-    }
+/* =====================
+   INFO BOX
+===================== */
+#hasil {
+    margin-top: 14px;
+    padding: 14px;
+    background: #ffffff;
+    border-radius: 12px;
+    font-size: 13px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
 }
-/* Jadwal Sholat styles */
+
+/* =====================
+   JADWAL SHOLAT
+===================== */
 .jadwal-list {
     list-style: none;
-    padding: 0;
-    margin-top: 20px;
+    margin-top: 16px;
 }
 
 .jadwal-list li {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
-    margin-bottom: 10px;
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    border-radius: 12px;
-    font-size: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,.08);
 }
 
-.jadwal-list li:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.jadwal-list li i {
-    margin-right: 10px;
-    font-size: 24px;
-    color: #3bdd40;
-    flex-shrink: 0;
+.jadwal-list i {
+    color: #22c55e;
+    font-size: 22px;
 }
 
 .jadwal-list span {
-    font-weight: bold;
-    color: #3bdd40;
-    font-size: 18px;
+    font-weight: 600;
 }
+
+/* =====================
+   FOOTER
+===================== */
+footer {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    footer {
+        display: block;
+        text-align: center;
+        font-size: 12px;
+        opacity: 0.6;
+        margin: 32px 0;
+    }
+}
+
+/* =====================
+   BOTTOM NAV (APP STYLE)
+===================== */
+.bottom-nav {
+    position: fixed;
+    left: 50%;
+    bottom: env(safe-area-inset-bottom);
+    transform: translateX(-50%);
+    width: calc(100% - 20px);
+    max-width: 430px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 28px;
+    padding: 10px 8px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,.18),
+        0 2px 6px rgba(0,0,0,.08);
+    z-index: 999;
+}
+
+
+.bottom-nav button {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 6px 0;
+    border-radius: 18px;
+    color: #9ca3af;
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    transition: all .25s ease;
+}
+
+
+.bottom-nav i {
+    font-size: 20px;
+    transition: transform .25s ease;
+}
+
+
+.bottom-nav button.active {
+    color: #16a34a;
+    background: linear-gradient(
+        180deg,
+        rgba(34,197,94,.18),
+        rgba(34,197,94,.08)
+    );
+}
+
+.bottom-nav button.active i {
+    transform: translateY(-2px) scale(1.1);
+}
+
+.bottom-nav button:active {
+    transform: scale(0.96);
+}
+
